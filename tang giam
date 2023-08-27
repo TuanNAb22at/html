@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+bool nt(int n){
+	for(int i=2;i<=sqrt(n);i++){
+		if(n%i==0) return false;
+	}
+	return true;
+}
+int a[20],n,ok;
+void kt(){
+	for(int i=1;i<=n;i++) a[i]=i;
+}
+void sinh(){
+	int i=n;
+	while(i>=1 && a[i]==9-n+i){
+		--i;
+	}
+	if(i==0) ok=0;
+	else{
+		a[i]++;
+		for(int j=i+1;j<=n;j++){
+			a[j]=a[j-1]+1;
+		}
+	}
+}
+int b[20],ok1;
+void kt1(){
+	int dem=1;
+	for(int i=9;i>=10-n;i--){
+		b[dem]=i;
+		++dem;
+	}
+}
+
+void sinh1(){
+	int i=n;
+	while(i>=1 && b[i]==n-i){
+		--i;
+	}
+	if(i==0) ok1=0;
+	else{
+		b[i]--;
+		for(int j=i+1;j<=n;j++){
+			b[j]=b[j-1]-1;
+		}
+	}	
+}
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--){
+	int cnt=0;
+	cin>>n;
+	ok=1;
+	ok1=1;
+	kt();
+	while(ok){
+		int res=0;
+		for(int i=1;i<=n;i++){
+			res=res*10+a[i];
+		}
+		if(nt(res)) cnt++;
+		sinh();
+	}
+	kt1();
+	while(ok1){
+		int res=0;
+		for(int i=1;i<=n;i++){
+			res=res*10+b[i];
+		}
+		if(nt(res)) cnt++;
+		sinh1();
+	}
+	cout<<cnt<<endl;
+	}
+}
